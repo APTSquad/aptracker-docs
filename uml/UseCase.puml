@@ -5,6 +5,10 @@ left to right direction
 :Руководитель: as Manager
 :Сотрудник: as Developer
 
+Admin -|> Manager
+Manager -|> Developer
+
+
 (Управлять портфелями) as (BagManage)
 (Просматривать портфели) as (BagView)
 (Создать портфель) as (BagCreate)
@@ -22,39 +26,82 @@ left to right direction
 (Добавить заказчика в портфель) as (BagAddClient)
 (Перенести заказчика в портфель) as (BagMoveClient)
 
-(BagCreate) ..> (BagManage) : extends
-(BagView) <.. (BagManage) : include
+(BagManage) <.. (BagCreate) : extends
+(BagManage) ..> (BagView) : include
 
-(BagManageSingle) ..> (BagManage) : extends
+(BagManage) <.. (BagManageSingle) : extends
 
-(BagAddArticle) ..> (BagManageSingle) : extends
-(BagMoveArticle) ..> (BagAddArticle) : extends
+(BagManageSingle) <.. (BagAddArticle) : extends
+(BagAddArticle) <.. (BagMoveArticle) : extends
 
-(BagAddProject) ..> (BagManageSingle) : extends
-(BagMoveProject) ..> (BagAddProject) : extends
+(BagManageSingle) <.. (BagAddProject) : extends
+(BagAddProject) <.. (BagMoveProject) : extends
 
-(BagAddClient) ..> (BagManageSingle) : extends
-(BagMoveClient) ..> (BagAddClient) : extends
+(BagManageSingle) <.. (BagAddClient) : extends
+(BagAddClient) <.. (BagMoveClient) : extends
 
-(BagRename) ..> (BagManageSingle) : extends
+(BagManageSingle) <.. (BagRename) : extends
 
-(BagSetResponsive) .> (BagManageSingle) : extends
+(BagManageSingle) .> (BagSetResponsive) : extends
 
-Admin -> (BagManage)
-
-Manager <|-- Admin
-Developer <|-- Manager
-
+Admin --> (BagManage)
 
 (Получить отчет уровня портфеля) as (GetBagReport)
 Manager --> (GetBagReport)
 
-
 (Заполнить отчет за день) as (FillDailyReport)
 (Зафиксировать отчет за день) as (FixDailyReport)
-(FixDailyReport) ..> (FillDailyReport) : extends
+(FillDailyReport) ..> (FixDailyReport) : extends
 
 Developer --> (FillDailyReport)
+
+(Управлять иерархией) as (ManageHierarchy)
+(Просматривать иерархию) as (ViewHierarchy)
+(ManageHierarchy) ..> (ViewHierarchy) : include
+
+(Управлять клиентом) as (ManageClient)
+(Управлять проектом клиента) as (ManageProject)
+(Управлять статьей проекта) as (ManageArticle)
+
+(ManageHierarchy) <.. (ManageClient) : extends
+(ManageClient) <.. (ManageProject) : extends
+(ManageProject) <.. (ManageArticle) : extends
+
+
+(Добавить клиента) as (AddClient)
+(Добавить проект клиенту) as (AddProject)
+(Добавить статью проекту) as (AddArticle)
+
+(ManageHierarchy) <.. (AddClient) : extends
+(ManageClient) <.. (AddProject) : extends
+(ManageProject) <.. (AddArticle) : extends
+
+(Перенести проект клиенту) as (TransferProject)
+(Перенести статью проекту) as (TransferArticle)
+
+(ManageProject) <. (TransferProject) : extends
+(ManageArticle) <. (TransferArticle) : extends
+
+(Управлять общими статьями) as (ManageCommonArticles)
+
+(ManageCommonArticles) ..> (ViewCommonArticles) : include
+
+(ManageCommonArticles) <.. (AddCommonArticle) : extends
+(ManageCommonArticles) <.. (EditCommonArticle) : extends
+
+(Просматривать общие статьи) as (ViewCommonArticles)
+(Добавить общую статью) as (AddCommonArticle)
+(Редактировать общую статью) as (EditCommonArticle)
+
+
+Admin --> (ManageHierarchy)
+Admin --> (ManageCommonArticles)
+
+legend top left
+    Для выполнения любого сценария,
+    указанного в данной диаграмме,
+    требуется аутентификация пользователя
+endlegend
 
 
 @enduml
