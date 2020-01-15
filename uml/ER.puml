@@ -1,0 +1,81 @@
+@startuml APTracker ER
+
+' hide the spot
+hide circle
+
+' avoid problems with angled crows feet
+skinparam linetype ortho
+
+entity "ConsumptionArticle" as Article {
+  *Id : идентификатор
+  --
+  *Name : строка
+  *IsCommon : булев
+  --
+  *ProjectId : внешний идентификатор
+  *BagId : внешний идентификатор
+}
+
+entity "Project" as Project {
+  *Id : идентификатор
+  --
+  *Name : строка
+  --
+  *ClientId : внешний идентификатор
+  *BagId : внешний идентификатор
+}
+
+entity "Client" as Client {
+  *Id : идентификатор
+  --
+  *Name : строка
+  --
+  *BagId : внешний идентификатор
+}
+
+entity "Bag" as Bag {
+  *Id : идентификатор
+  --
+  *Name : строка
+  *ResponsibleId : внешний идентификатор
+}
+
+entity "User" as User {
+  *Id : идентификатор
+  --
+  *Name : строка
+  *Email : строка
+}
+
+entity "ConsumptionReportItem" as ConsumptionReportItem {
+  *Id : идентификатор
+  --
+  *HoursConsumtion : вещественное
+  --
+  *ArticleId : внешний идентификатор
+  *DailyReportId : внешний идентификатор
+}
+
+entity "DailyReport" as DailyReport {
+  *Id : идентификатор
+  --
+  *HoursConsumtion : вещественное
+  --
+  *ArticleId : внешний идентификатор
+  *DailyReportId : внешний идентификатор
+}
+
+
+User ||..o{ DailyReport
+User ||..o{ Bag
+Client ||..o{ Project
+Project ||..o{ Article
+
+Bag |o..o{ Project
+Bag |o..o{ Article
+Bag ||..o{ Client
+
+DailyReport ||..o{ ConsumptionReportItem
+
+
+@enduml

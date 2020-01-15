@@ -1,4 +1,4 @@
-@startuml 'APTracker Use Cases'
+@startuml APTracker Use Cases
 left to right direction
 skinparam DefaultFontSize 18
 
