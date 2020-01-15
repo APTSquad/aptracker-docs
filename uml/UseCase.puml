@@ -1,0 +1,60 @@
+@startuml 'APTracker Use Cases'
+left to right direction
+
+:Администратор: as Admin
+:Руководитель: as Manager
+:Сотрудник: as Developer
+
+(Управлять портфелями) as (BagManage)
+(Просматривать портфели) as (BagView)
+(Создать портфель) as (BagCreate)
+
+(Управлять одним портфелем) as (BagManageSingle)
+(Редактировать название портфеля) as (BagRename)
+(Назначить ответственного портфеля) as (BagSetResponsive)
+
+(Добавить статью в портфель) as (BagAddArticle)
+(Перенести статью в портфель) as (BagMoveArticle)
+
+(Добавить проект в портфель) as (BagAddProject)
+(Перенести проект в портфель) as (BagMoveProject)
+
+(Добавить заказчика в портфель) as (BagAddClient)
+(Перенести заказчика в портфель) as (BagMoveClient)
+
+(BagCreate) ..> (BagManage) : extends
+(BagView) <.. (BagManage) : include
+
+(BagManageSingle) ..> (BagManage) : extends
+
+(BagAddArticle) ..> (BagManageSingle) : extends
+(BagMoveArticle) ..> (BagAddArticle) : extends
+
+(BagAddProject) ..> (BagManageSingle) : extends
+(BagMoveProject) ..> (BagAddProject) : extends
+
+(BagAddClient) ..> (BagManageSingle) : extends
+(BagMoveClient) ..> (BagAddClient) : extends
+
+(BagRename) ..> (BagManageSingle) : extends
+
+(BagSetResponsive) .> (BagManageSingle) : extends
+
+Admin -> (BagManage)
+
+Manager <|-- Admin
+Developer <|-- Manager
+
+
+(Получить отчет уровня портфеля) as (GetBagReport)
+Manager --> (GetBagReport)
+
+
+(Заполнить отчет за день) as (FillDailyReport)
+(Зафиксировать отчет за день) as (FixDailyReport)
+(FixDailyReport) ..> (FillDailyReport) : extends
+
+Developer --> (FillDailyReport)
+
+
+@enduml
