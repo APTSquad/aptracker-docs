@@ -1,5 +1,6 @@
 @startuml 'APTracker Use Cases'
 left to right direction
+skinparam DefaultFontSize 18
 
 :Администратор: as Admin
 :Руководитель: as Manager
@@ -93,7 +94,13 @@ Developer --> (FillDailyReport)
 (Добавить общую статью) as (AddCommonArticle)
 (Редактировать общую статью) as (EditCommonArticle)
 
+(Управлять сотрудниками) as (ManageUsers)
 
+(Установить ставку сотруднику) as (SetUserRate)
+(ManageUsers) <. (SetUserRate) : extends
+
+
+Admin --> (ManageUsers)
 Admin --> (ManageHierarchy)
 Admin --> (ManageCommonArticles)
 
