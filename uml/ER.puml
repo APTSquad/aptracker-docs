@@ -59,10 +59,10 @@ entity "ConsumptionReportItem" as ConsumptionReportItem {
 entity "DailyReport" as DailyReport {
   *Id : идентификатор
   --
-  *HoursConsumtion : вещественное
+  *Date : дата и время
+  *State : короткое целое
   --
-  *ArticleId : внешний идентификатор
-  *DailyReportId : внешний идентификатор
+  *UserId : внешний идентификатор
 }
 
 

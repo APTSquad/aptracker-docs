@@ -1,0 +1,29 @@
+@startuml APTracker Component
+left to right direction
+skinparam DefaultFontSize 18
+
+interface "HTTP" as HTTP
+
+node "Proxy server" {
+    component "HTTP Proxy" as Proxy
+    [Proxy] -- [HTTP]
+}
+
+node "Database server" {
+    database "Database instance" as DB
+}
+
+node "Client server" {
+    component "Client application instance" as Client
+
+    [Client] -- [HTTP]
+}
+
+node "API Server" {
+    component "API instance" as API
+
+    [API] -- [HTTP]
+    [API] -- [DB]
+}
+
+@enduml
