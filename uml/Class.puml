@@ -1,0 +1,90 @@
+@startuml APTracker.Class
+skinparam DefaultFontSize 20
+
+
+class ArticlesController {
+    +CreateOne()
+    +GetAll()
+    +GetAllCommon()
+    +CreateCommmon()
+    +GetById()
+    +SetBag()
+    +Transfer()
+    +Put()
+}
+ArticlesController o-- AppDbContext
+
+class ProjectsController {
+    +CreateOne()
+    +GetAll()
+    +GetById()
+    +SetBag()
+    +Transfer()
+    +Put()
+}
+
+ProjectsController o-- AppDbContext
+
+class ClientsController {
+    +CreateOne()
+    +GetAll()
+    +GetById()
+    +SetBag()
+    +Put()
+}
+
+ClientsController o-- AppDbContext
+
+class BagsController {
+    +MyBags()
+    +CreateOne()
+    +GetAll()
+    +GetById()
+    +Put()
+}
+
+BagsController o-- AppDbContext
+
+class HierarchyController {
+    +GetHierarchy()
+}
+
+HierarchyController o-- AppDbContext
+
+class IdentityController {
+    +Me()
+}
+
+IdentityController o-- AppDbContext
+
+class ReportController {
+    +GetDaysData()
+    +GetTemplate()
+    +GetReport()
+    +SaveReport()
+}
+
+ReportController o-- AppDbContext
+
+class BagReportController {
+    +GetBagReport()
+}
+
+BagReportController o-- AppDbContext
+
+class AppDbContext {
+    +ConsumptionArticles
+    +DailyReports
+    +Articles
+    +Projects
+    +Clients
+    +Bags
+    +Users
+}
+
+
+
+
+
+
+@enduml

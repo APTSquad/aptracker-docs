@@ -1,11 +1,11 @@
-@startuml APTracker Component
+@startuml APTracker.ComponentDeployment
 left to right direction
 skinparam DefaultFontSize 18
 
 interface "HTTP" as HTTP
 
 node "Proxy server" {
-    component "HTTP Proxy" as Proxy
+    component "HTTP proxy" as Proxy
     [Proxy] -- [HTTP]
 }
 

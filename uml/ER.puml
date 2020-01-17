@@ -1,4 +1,5 @@
-@startuml APTracker ER
+@startuml APTracker.ER
+skinparam DefaultFontSize 18
 
 ' hide the spot
 hide circle
